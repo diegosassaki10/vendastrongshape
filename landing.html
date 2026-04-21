@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEU NOME — Personal Trainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ─────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #0a0a0a;
+    --dark:    #111111;
+    --card:    #181818;
+    --border:  #2a2a2a;
+    --red:     #e63329;
+    --red2:    #ff4d41;
+    --white:   #f5f2ee;
+    --muted:   #888888;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ───────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ── WRAPPER ─────────────────────────────────── */
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ── HERO ────────────────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 52px 0 36px;
+    position: relative;
+  }
+
+  .avatar-ring {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .avatar-ring::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--red), var(--red2), #ff8c00, var(--red));
+    animation: spin 4s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--black);
+    position: relative;
+    z-index: 1;
+    object-fit: cover;
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    overflow: hidden;
+  }
+
+  .avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--black);
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 10vw, 52px);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 6px;
+    background: linear-gradient(160deg, var(--white) 40%, #aaaaaa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-title {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .hero-bio {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #aaa;
+    max-width: 340px;
+    margin: 0 auto 20px;
+    font-weight: 300;
+  }
+
+  /* ── TAGS ────────────────────────────────────── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--muted);
+  }
+
+  /* ── DIVIDER ─────────────────────────────────── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .divider span {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── SECTION TITLE ───────────────────────────── */
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+
+  /* ── PRODUCT CARDS ───────────────────────────── */
+  .products { display: flex; flex-direction: column; gap: 14px; }
+
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: border-color 0.25s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(230,51,41,0.06));
+    pointer-events: none;
+  }
+
+  .product-card:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+  }
+
+  .product-card.featured {
+    border-color: var(--red);
+    background: linear-gradient(135deg, #1a1010 0%, #1e1212 100%);
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--red);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+  }
+
+  .product-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .product-info { flex: 1; }
+
+  .product-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .product-desc {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.55;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--red2);
+    letter-spacing: 0.03em;
+  }
+
+  .product-price .old-price {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: line-through;
+    margin-right: 6px;
+    font-family: var(--font-body);
+    font-weight: 300;
+  }
+
+  .btn-card {
+    background: var(--red);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-card:hover { background: var(--red2); transform: scale(1.04); }
+
+  /* ── LINK BUTTONS ────────────────────────────── */
+  .links { display: flex; flex-direction: column; gap: 10px; }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .link-btn:hover {
+    border-color: #444;
+    background: #1e1e1e;
+    transform: translateX(3px);
+  }
+
+  .link-btn .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .link-btn .arrow {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .link-btn .label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* ── SOCIAL ──────────────────────────────────── */
+  .social {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 32px 0 0;
+  }
+
+  .social-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+
+  .social-btn:hover { border-color: var(--red); transform: scale(1.1); }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FADE-IN ─────────────────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+  .delay-6 { animation-delay: 0.6s; }
+
+  /* ── EDIT HINT ───────────────────────────────── */
+  .edit-bar {
+    background: linear-gradient(90deg, #1a1a1a, #222);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+  .edit-bar strong { color: var(--red2); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- EDIT HINT (remova antes de publicar) -->
+  <div class="edit-bar fade-up">
+    ✏️ <strong>Editável:</strong> Abra este arquivo no VS Code ou Notepad e troque os textos marcados com 〔 〕
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="avatar-ring fade-up">
+      <!-- 〔FOTO〕 Troque o emoji pela sua foto: <img src="sua-foto.jpg" class="avatar"> -->
+      <div class="avatar-placeholder">💪</div>
+    </div>
+
+    <!-- 〔NOME〕 -->
+    <h1 class="hero-name fade-up delay-1">SEU NOME</h1>
+
+    <!-- 〔TÍTULO〕 -->
+    <p class="hero-title fade-up delay-2">Personal Trainer · Coach de Força</p>
+
+    <!-- 〔BIO〕 -->
+    <p class="hero-bio fade-up delay-3">
+      Ajudo pessoas a transformarem seus corpos e mentalidade através do treinamento de força inteligente e consistente.
+    </p>
+
+    <!-- 〔TAGS〕 Adicione ou remova tags -->
+    <div class="tags fade-up delay-3">
+      <span class="tag">Hipertrofia</span>
+      <span class="tag">Emagrecimento</span>
+      <span class="tag">Online</span>
+      <span class="tag">Presencial</span>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <div class="fade-up delay-3">
+    <div class="divider"><span>Produtos & Serviços</span></div>
+    <p class="section-title">O QUE OFEREÇO</p>
+  </div>
+
+  <div class="products">
+
+    <!-- PRODUTO 1 — DESTAQUE -->
+    <div class="product-card featured fade-up delay-3">
+      <span class="product-badge">⭐ Mais Vendido</span>
+      <div class="product-icon">📋</div>
+      <div class="product-info">
+        <!-- 〔PRODUTO 1〕 -->
+        <div class="product-name">PLANILHA DE TREINO</div>
+        <p class="product-desc">Planilha completa com programa personalizado, registro diário, teste de 1RM e gráficos de evolução.</p>
+        <div class="product-footer">
+          <div class="product-price">
+            <span class="old-price">R$ 49</span>R$ 29
+          </div>
+          <!-- 〔LINK PRODUTO 1〕 Troque # pelo link de pagamento -->
+          <button class="btn-card" onclick="window.open('#', '_blank')">QUERO AGORA</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUTO 2 -->
+    <div class="product-card fade-up delay-4">
+      <div class="product-icon">🎯</div>
+      <div class="product-info">
+        <!-- 〔PRODUTO 2〕 -->
+        <div class="product-name">CONSULTORIA ONLINE</div>
+        <p class="product-desc">Avaliação, montagem de treino e acompanhamento semanal via WhatsApp por 30 dias.</p>
+        <div class="product-footer">
+          <div class="product-price">R$ 197</div>
+          <!-- 〔LINK PRODUTO 2〕 -->
+          <button class="btn-card" onclick="window.open('#', '_blank')">QUERO AGORA</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUTO 3 -->
+    <div class="product-card fade-up delay-5">
+      <div class="product-icon">📱</div>
+      <div class="product-info">
+        <!-- 〔PRODUTO 3〕 -->
+        <div class="product-name">TREINO ONLINE</div>
+        <p class="product-desc">Programa completo de 12 semanas com vídeos explicativos e suporte por mensagem.</p>
+        <div class="product-footer">
+          <div class="product-price">R$ 97</div>
+          <!-- 〔LINK PRODUTO 3〕 -->
+          <button class="btn-card" onclick="window.open('#', '_blank')">QUERO AGORA</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LINKS -->
+  <div class="fade-up delay-4">
+    <div class="divider" style="margin-top:32px"><span>Links Rápidos</span></div>
+    <p class="section-title">ACESSO DIRETO</p>
+  </div>
+
+  <div class="links">
+
+    <!-- 〔LINK A〕 -->
+    <a class="link-btn fade-up delay-4" href="#" target="_blank">
+      <div class="icon" style="background:#1a1a2e;">💬</div>
+      <div>
+        Fale comigo no WhatsApp
+        <span class="label">Tire suas dúvidas agora</span>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <!-- 〔LINK B〕 -->
+    <a class="link-btn fade-up delay-5" href="#" target="_blank">
+      <div class="icon" style="background:#1a0a12;">📸</div>
+      <div>
+        Me siga no Instagram
+        <span class="label">@seuarroba</span>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <!-- 〔LINK C〕 -->
+    <a class="link-btn fade-up delay-5" href="#" target="_blank">
+      <div class="icon" style="background:#0a1a0a;">▶️</div>
+      <div>
+        Canal no YouTube
+        <span class="label">Treinos e dicas gratuitas</span>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <!-- 〔LINK D〕 Descomente e edite para adicionar mais links
+    <a class="link-btn fade-up delay-6" href="#" target="_blank">
+      <div class="icon" style="background:#1a1a0a;">🎙️</div>
+      <div>
+        Podcast
+        <span class="label">Episódios sobre saúde e treino</span>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+    -->
+
+  </div>
+
+  <!-- SOCIAL -->
+  <div class="social fade-up delay-5">
+    <!-- 〔REDES SOCIAIS〕 Troque os # pelos seus links -->
+    <a class="social-btn" href="#" title="Instagram">📸</a>
+    <a class="social-btn" href="#" title="YouTube">▶️</a>
+    <a class="social-btn" href="#" title="WhatsApp">💬</a>
+    <a class="social-btn" href="#" title="TikTok">🎵</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer fade-up delay-6">
+    <!-- 〔COPYRIGHT〕 -->
+    <p>© 2025 SEU NOME — Todos os direitos reservados</p>
+  </div>
+
+</div>
+</body>
+</html>
